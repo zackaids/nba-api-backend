@@ -73,6 +73,10 @@ import os
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def home():
+    return "NBA Stats Backend is running!"
+
 @app.route("/player/<name>", methods=["GET"])
 def get_player_stats(name):
     player_dict = players.find_players_by_full_name(name)
