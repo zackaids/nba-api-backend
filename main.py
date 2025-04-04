@@ -62,12 +62,12 @@
 # 6. Fantasy League helper
 # 7. User Accounts/Social Media
 
-import pandas as pd
-from nba_api.stats.static import players
-from nba_api.stats.endpoints import playercareerstats, teamyearbyyearstats, leagueleaders, leaguedashplayerstats, leaguedashteamstats
-from nba_api.live.nba.endpoints import scoreboard
+# import pandas as pd
+# from nba_api.stats.static import players
+# from nba_api.stats.endpoints import playercareerstats, teamyearbyyearstats, leagueleaders, leaguedashplayerstats, leaguedashteamstats
+# from nba_api.live.nba.endpoints import scoreboard
 from flask import Flask, jsonify, request
-from flask_cors import CORS
+# from flask_cors import CORS
 import os
 
 app = Flask(__name__)
