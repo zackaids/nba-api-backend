@@ -68,6 +68,7 @@ from nba_api.stats.endpoints import playercareerstats, teamyearbyyearstats, leag
 from nba_api.live.nba.endpoints import scoreboard
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -364,4 +365,4 @@ def get_all_team_stats_leaders():
     return jsonify(stats)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
