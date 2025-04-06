@@ -291,7 +291,189 @@ def get_team_points_leaders():
     return jsonify(results)
 
 
+@app.route("/api/team_stats_leaders/rpg")
+def get_team_rebound_leaders():
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='PerGame'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('REB', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['REB']:.1f}"
+        })
+    
+    return jsonify(results)
 
+@app.route("/api/team_stats_leaders/apg")
+def get_team_assist_leaders():
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='PerGame'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('AST', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['AST']:.1f}"
+        })
+    
+    return jsonify(results)
+
+@app.route("/api/team_stats_leaders/spg")
+def get_team_steal_leaders():
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='PerGame'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('STL', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['STL']:.1f}"
+        })
+    
+    return jsonify(results)
+
+@app.route("/api/team_stats_leaders/bpg")
+def get_team_block_leaders():
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='PerGame'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('BLK', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['BLK']:.1f}"
+        })
+    
+    return jsonify(results)
+
+@app.route("/api/team_stats_leaders/fgp")
+def get_team_fg_percentage_leaders():
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='PerGame'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('FG_PCT', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['FG_PCT'] * 100:.1f}%"
+        })
+    
+    return jsonify(results)
+
+@app.route("/api/team_stats_leaders/3pp")
+def get_team_3p_percentage_leaders():
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='PerGame'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('FG3_PCT', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['FG3_PCT'] * 100:.1f}%"
+        })
+    
+    return jsonify(results)
+
+@app.route("/api/team_stats_leaders/ftp")
+def get_team_ft_percentage_leaders():
+    """Get the top 5 teams by free throw percentage"""
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='PerGame'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('FT_PCT', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['FT_PCT'] * 100:.1f}%"
+        })
+    
+    return jsonify(results)
+
+@app.route("/api/team_stats_leaders/wins")
+def get_team_wins_leaders():
+    """Get the top 5 teams by wins"""
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='Totals'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('W', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['W']}"
+        })
+    
+    return jsonify(results)
+
+@app.route("/api/team_stats_leaders/losses")
+def get_team_losses_leaders():
+    """Get the top 5 teams by losses"""
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='Totals'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('L', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['L']}"
+        })
+    
+    return jsonify(results)
+
+@app.route("/api/team_stats_leaders/winpct")
+def get_team_win_pct_leaders():
+    """Get the top 5 teams by win percentage"""
+    team_stats = leaguedashteamstats.LeagueDashTeamStats(
+        season_type_all_star='Regular Season',
+        per_mode_detailed='Totals'
+    )
+    df = team_stats.get_data_frames()[0].sort_values('W_PCT', ascending=False).head(5)
+    results = []
+    
+    for _, row in df.iterrows():
+        results.append({
+            'team_name': row['TEAM_NAME'],
+            'team_id': row['TEAM_ID'],
+            'stat_value': f"{row['W_PCT'] * 100:.1f}%"
+        })
+    
+    return jsonify(results)
 
 @app.route("/api/team_stats_leaders/all")
 def get_all_team_stats_leaders():
@@ -300,16 +482,16 @@ def get_all_team_stats_leaders():
 
     stats = {
         'points': response_to_dict(get_team_points_leaders()),
-        # 'rebounds': response_to_dict(get_team_rebound_leaders()),
-        # 'assists': response_to_dict(get_team_assist_leaders()), 
-        # 'steals': response_to_dict(get_team_steal_leaders()),
-        # 'blocks': response_to_dict(get_team_block_leaders()),
-        # 'fieldgoal': response_to_dict(get_team_fg_percentage_leaders()),
-        # 'threepoint': response_to_dict(get_team_3p_percentage_leaders()),
-        # 'freethrow': response_to_dict(get_team_ft_percentage_leaders()),
-        # 'wins': response_to_dict(get_team_wins_leaders()),
-        # 'losses': response_to_dict(get_team_losses_leaders()),
-        # 'winpct': response_to_dict(get_team_win_pct_leaders())
+        'rebounds': response_to_dict(get_team_rebound_leaders()),
+        'assists': response_to_dict(get_team_assist_leaders()), 
+        'steals': response_to_dict(get_team_steal_leaders()),
+        'blocks': response_to_dict(get_team_block_leaders()),
+        'fieldgoal': response_to_dict(get_team_fg_percentage_leaders()),
+        'threepoint': response_to_dict(get_team_3p_percentage_leaders()),
+        'freethrow': response_to_dict(get_team_ft_percentage_leaders()),
+        'wins': response_to_dict(get_team_wins_leaders()),
+        'losses': response_to_dict(get_team_losses_leaders()),
+        'winpct': response_to_dict(get_team_win_pct_leaders())
     }
     
     return jsonify(stats)
